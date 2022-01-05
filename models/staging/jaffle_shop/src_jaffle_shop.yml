@@ -1,14 +1,29 @@
 version: 2
-# THIS  DEFYNE THE SOURCES WE NEED TO RESEARCH IF THE TOOLS ALLOW MORE THAT ONE SOURCE HERE
-# MY CDW HAS MORE THAN 2 SOURCES EXA PLE S1, S2  HOW MAP THAT ONES. 
+
 sources:
   - name: jaffle_shop
+    description: A clone of a Postgres application database.
     database: raw
     schema: jaffle_shop
     tables:
       - name: customers
+        description: Raw customers data.
+        columns:
+          - name: id
+            description: Primary key for customers.
+            tests:
+              - unique
+              - not_null
+
       - name: orders
+        description: Raw orders data.
+        columns:
+          - name: id
+            description: Primary key for orders.
+            tests:
+              - unique
+              - not_null
         loaded_at_field: _etl_loaded_at
         freshness:
           warn_after: {count: 12, period: hour}
-          error_after: {count: 24, period: hour}
+          error_after: {count: 24, period: hour}          
